@@ -1,0 +1,34 @@
+buildscript {
+    ext.kotlin_version = '1.6.21'
+
+    repositories {
+        mavenCentral()
+        google()
+        maven { url "$rootDir/localMavenRepository/snapshot" }
+        maven { url "$rootDir/localMavenRepository/release" }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url "$rootDir/localMavenRepository/snapshot" }
+        maven { url "$rootDir/localMavenRepository/release" }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url "https://jitpack.io" }
+    }
+}

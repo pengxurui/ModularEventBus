@@ -1,0 +1,34 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+//task generateSourcesJar(type:Jar){
+//    from java.sourceSets.main.java.srcDirs
+//    classifier "sources"
+//}
+//
+//publishing {
+//    publications {
+//        annotation(MavenPublication) {
+//            from components.java
+////            artifact generateSourcesJar
+//            groupId 'com.pengxr.android'
+//            artifactId 'modular-eventbus-annotation'
+//            version "1.0.0"
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "$rootDir/localMavenRepository/snapshot"
+//        }
+//    }
+//}
+
+apply from: rootProject.file('gradle/publish.gradle')

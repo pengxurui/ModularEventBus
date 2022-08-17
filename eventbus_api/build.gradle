@@ -1,0 +1,69 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+android {
+    compileSdk Integer.parseInt(COMPILE_SDK_VERSION)
+
+    defaultConfig {
+        minSdk Integer.parseInt(MIN_SDK_VERSION)
+        targetSdk Integer.parseInt(TARGET_SDK_VERSION)
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    def lifecycle_version = "2.5.0"
+    // Lifecycle 核心类
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    api "com.pengxr.android:modular-eventbus-annotation:1.0.0"
+}
+
+//publishing {
+//    publications {
+//        api(MavenPublication) {
+//            groupId 'com.pengxr.android'
+//            artifactId 'modular-eventbus'
+//            version "1.0.0"
+//            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
+//            pom.withXml {
+//                def dependenciesNode = asNode().appendNode("dependencies")
+//                configurations.implementation.allDependencies.forEach() {
+//                    Dependency dependency ->
+//                        if (dependency.version != "unspecified" && dependency.name != "unspecified") {
+//                            def dependencyNode = dependenciesNode.appendNode('dependency')
+//                            dependencyNode.appendNode('groupId', dependency.group)
+//                            dependencyNode.appendNode('artifactId', dependency.name)
+//                            dependencyNode.appendNode('version', dependency.version)
+//                        }
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "$rootDir/localMavenRepository/snapshot"
+//        }
+//    }
+//}
+
+apply from: rootProject.file('gradle/publish.gradle')

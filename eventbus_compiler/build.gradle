@@ -1,0 +1,38 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation 'com.google.auto.service:auto-service-annotations:1.0-rc7'
+    kapt 'com.google.auto.service:auto-service:1.0-rc7'
+    implementation 'com.alibaba:fastjson:1.2.48'
+    implementation 'com.squareup:javapoet:1.10.0'
+
+    api "com.pengxr.android:modular-eventbus-annotation:1.0.0"
+}
+
+//publishing {
+//    publications {
+//        processor(MavenPublication) {
+//            from components.java
+//            groupId 'com.pengxr.android'
+//            artifactId 'modular-eventbus-processor'
+//            version "1.0.0"
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "$rootDir/localMavenRepository/snapshot"
+//        }
+//    }
+//}
+
+apply from: rootProject.file('gradle/publish.gradle')

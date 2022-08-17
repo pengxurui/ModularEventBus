@@ -1,0 +1,8 @@
+rootProject.name = "ModularEventBus"
+include ':sample'
+include ':eventbus_annotation'
+include ':eventbus_compiler'
+include ':eventbus_api'
+include ':sampleLoginLib'
+include ':sambleBaseLib'
+include ':sampleOrderLib'
