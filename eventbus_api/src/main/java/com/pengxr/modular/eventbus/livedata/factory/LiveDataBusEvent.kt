@@ -14,48 +14,44 @@ import com.pengxr.modular.eventbus.livedata.bus.LiveDataBus
 internal class LiveDataBusEvent<T>(eventName: String, dataClazz: Class<T>, nullable: Boolean, autoClear: Boolean) :
     BaseEvent<T>(eventName, dataClazz, nullable, autoClear) {
 
-    override fun post(value: T?): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).post(value)
-        return super.post(value)
+    override fun doPost(value: T?) {
+        LiveDataBus.with(eventName, dataClazz, autoClear).post(value)
     }
 
-    override fun postDelay(value: T?, delay: Long): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postDelay(value, delay)
-        return super.postDelay(value, delay)
+    override fun doPostDelay(value: T?, delay: Long) {
+        LiveDataBus.with(eventName, dataClazz, autoClear).postDelay(value, delay)
     }
 
-    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postDelay(value, delay, producer)
-        return super.postDelay(value, delay, producer)
+    override fun doPostDelay(value: T?, delay: Long, producer: LifecycleOwner) {
+        LiveDataBus.with(eventName, dataClazz, autoClear).postDelay(value, delay, producer)
     }
 
-    override fun postOrderly(value: T?): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postOrderly(value)
-        return super.postOrderly(value)
+    override fun doPostOrderly(value: T?) {
+        LiveDataBus.with(eventName, dataClazz, autoClear).postOrderly(value)
     }
 
     override fun observe(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).observe(consumer, observer)
+        LiveDataBus.with(eventName, dataClazz, autoClear).observe(consumer, observer)
         return this
     }
 
     override fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).observeSticky(consumer, observer)
+        LiveDataBus.with(eventName, dataClazz, autoClear).observeSticky(consumer, observer)
         return this
     }
 
     override fun observeForever(observer: Observer<T?>): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).observeForever(observer)
+        LiveDataBus.with(eventName, dataClazz, autoClear).observeForever(observer)
         return this
     }
 
     override fun observeStickyForever(observer: Observer<T?>): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).observeStickyForever(observer)
+        LiveDataBus.with(eventName, dataClazz, autoClear).observeStickyForever(observer)
         return this
     }
 
     override fun removeObserver(observer: Observer<T?>): IEvent<T> {
-        LiveDataBus.with(eventName, dataClazz, nullable, autoClear).removeObserver(observer)
+        LiveDataBus.with(eventName, dataClazz, autoClear).removeObserver(observer)
         return this
     }
 

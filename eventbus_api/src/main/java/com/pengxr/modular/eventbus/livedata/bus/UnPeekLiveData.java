@@ -27,7 +27,6 @@ class UnPeekLiveData<T> extends ProtectedUnPeekLiveData<T> {
         private boolean isAutoClear;
         @Nullable
         private NoObserverCallback noObserverCallback;
-        protected boolean throwNullEventException;
 
         public Builder<T> setEventName(String eventName) {
             this.eventName = eventName;
@@ -49,18 +48,12 @@ class UnPeekLiveData<T> extends ProtectedUnPeekLiveData<T> {
             return this;
         }
 
-        public Builder<T> setThrowNullEventException(boolean throwNullEventException) {
-            this.throwNullEventException = throwNullEventException;
-            return this;
-        }
-
         public UnPeekLiveData<T> create() {
             UnPeekLiveData<T> liveData = new UnPeekLiveData<>();
             liveData.eventName = this.eventName;
             liveData.isAllowNullValue = this.isAllowNullValue;
             liveData.isAutoClear = this.isAutoClear;
             liveData.noObserverCallback = this.noObserverCallback;
-            liveData.throwNullEventException = this.throwNullEventException;
             return liveData;
         }
     }

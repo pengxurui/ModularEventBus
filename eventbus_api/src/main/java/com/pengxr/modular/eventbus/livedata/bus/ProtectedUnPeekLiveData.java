@@ -1,7 +1,5 @@
 package com.pengxr.modular.eventbus.livedata.bus;
 
-import com.pengxr.modular.eventbus.facade.exception.NullEventException;
-
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,8 +12,7 @@ import androidx.lifecycle.Observer;
 
 /**
  * LiveData base on KunMinX's version, it uses ObserverWrapper to solve sticky events.
- * This version is edit by pengxr: automatically clear livedata with no related observers,
- * throw NullEventException while posting not null event.
+ * This version is edit by pengxr: automatically clear livedata with no related observers.
  * <p>
  * {@see https://github.com/KunMinX/UnPeek-LiveData}
  */
@@ -31,7 +28,6 @@ class ProtectedUnPeekLiveData<T> extends LiveData<T> {
     protected boolean isAutoClear;
     @Nullable
     protected NoObserverCallback noObserverCallback;
-    protected boolean throwNullEventException;
 
     @Override
     public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
@@ -70,9 +66,7 @@ class ProtectedUnPeekLiveData<T> extends LiveData<T> {
         public void onChanged(T t) {
             if (mCurrentVersion.get() > mVersion) {
                 if (null == t && !isAllowNullValue) {
-                    if (throwNullEventException) {
-                        throw new NullEventException("Post notnull event " + eventName + " with a null value.");
-                    }
+                    return;
                 }
                 mObserver.onChanged(t);
             }

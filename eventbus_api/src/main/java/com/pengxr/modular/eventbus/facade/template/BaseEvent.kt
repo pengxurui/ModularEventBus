@@ -1,7 +1,7 @@
 package com.pengxr.modular.eventbus.facade.template
 
-import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
+import com.pengxr.modular.eventbus.facade.exception.NullEventException
 import com.pengxr.modular.eventbus.facade.launcher.ModularEventBus
 
 /**
@@ -32,27 +32,58 @@ abstract class BaseEvent<T>(
     val autoClear: Boolean
 ) : IEvent<T> {
 
-    @CallSuper
+    /**
+     * Check whether the data meet the event.
+     *
+     * @return true:available
+     */
+    private fun checkEventData(value: T?): Boolean {
+        if (null != value || nullable) {
+            return true
+        }
+        if (ModularEventBus.shouldThrowNullEvent()) {
+            throw NullEventException("Post nonnull event $eventName with a null value.")
+        }
+        return false
+    }
+
     override fun post(value: T?): IEvent<T> {
-        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        if (checkEventData(value)) {
+            ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+            doPost(value)
+        }
         return this
     }
 
-    @CallSuper
     override fun postDelay(value: T?, delay: Long): IEvent<T> {
-        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        if (checkEventData(value)) {
+            ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+            doPostDelay(value, delay)
+        }
         return this
     }
 
-    @CallSuper
     override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
-        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        if (checkEventData(value)) {
+            ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+            doPostDelay(value, delay, producer)
+        }
         return this
     }
 
-    @CallSuper
     override fun postOrderly(value: T?): IEvent<T> {
-        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        if (checkEventData(value)) {
+            ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+            doPostOrderly(value)
+        }
         return this
     }
+
+    protected abstract fun doPost(value: T?)
+
+    protected abstract fun doPostDelay(value: T?, delay: Long)
+
+    protected abstract fun doPostDelay(value: T?, delay: Long, producer: LifecycleOwner)
+
+    protected abstract fun doPostOrderly(value: T?)
 }

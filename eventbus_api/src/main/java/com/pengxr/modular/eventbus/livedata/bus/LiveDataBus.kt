@@ -1,6 +1,5 @@
 package com.pengxr.modular.eventbus.livedata.bus
 
-import com.pengxr.modular.eventbus.facade.launcher.ModularEventBus
 import com.pengxr.modular.eventbus.facade.template.IEvent
 
 /**
@@ -22,14 +21,13 @@ internal object LiveDataBus : NoObserverCallback {
      */
     @Suppress("UNCHECKED_CAST")
     @Synchronized
-    fun <T> with(eventName: String, dataClazz: Class<T>, nullable: Boolean, autoClear: Boolean): IEvent<T> {
+    fun <T> with(eventName: String, dataClazz: Class<T>, autoClear: Boolean): IEvent<T> {
         if (!bus.containsKey(eventName)) {
             val liveData = UnPeekLiveData.Builder<T>()
                 .setEventName(eventName)
-                .setAllowNullValue(nullable)
+                .setAllowNullValue(true)
                 .setAutoClear(autoClear)
                 .setNoObserverCallback(if (autoClear) this else null)
-                .setThrowNullEventException(ModularEventBus.shouldThrowNullEvent())
                 .create()
             bus[eventName] = LiveEvent(liveData)
         }
