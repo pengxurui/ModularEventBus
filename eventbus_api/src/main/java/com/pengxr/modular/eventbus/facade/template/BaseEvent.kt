@@ -1,5 +1,9 @@
 package com.pengxr.modular.eventbus.facade.template
 
+import androidx.annotation.CallSuper
+import androidx.lifecycle.LifecycleOwner
+import com.pengxr.modular.eventbus.facade.launcher.ModularEventBus
+
 /**
  * Base event class.
  * <p>
@@ -26,4 +30,29 @@ abstract class BaseEvent<T>(
      * Allow null data event or not.
      */
     val autoClear: Boolean
-) : IEvent<T>
+) : IEvent<T> {
+
+    @CallSuper
+    override fun post(value: T?): IEvent<T> {
+        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        return this
+    }
+
+    @CallSuper
+    override fun postDelay(value: T?, delay: Long): IEvent<T> {
+        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        return this
+    }
+
+    @CallSuper
+    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
+        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        return this
+    }
+
+    @CallSuper
+    override fun postOrderly(value: T?): IEvent<T> {
+        ModularEventBus.eventListener?.onEventPost(eventName, this, value)
+        return this
+    }
+}

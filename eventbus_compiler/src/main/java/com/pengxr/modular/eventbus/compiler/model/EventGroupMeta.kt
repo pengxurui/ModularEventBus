@@ -49,12 +49,19 @@ class EventGroupMeta(
          *
          * @return null if not a interface type, or miss @EventGroup.
          */
-        fun parseMeta(element: Element): EventGroupMeta? {
+        fun parseMeta(element: Element, logger: Logger): EventGroupMeta? {
+            if (null != element.getAnnotation(Ignore::class.java)) {
+                return null
+            }
             if (element !is TypeElement) {
                 return null
             }
             if (!element.kind.isInterface) {
-                throw IllegalEventGroupException("${TAG}Annotated @EventGroup on a class type [${element.simpleName}], expected a interface.")
+                if (element.kind.isClass) {
+                    logger.warning("${TAG}Annotated @EventGroup on a class type [${element.simpleName}], expected a interface. Is that really what you want?")
+                } else {
+                    throw IllegalEventGroupException("${TAG}Annotated @EventGroup on element [${element.simpleName}], expected a interface.")
+                }
             }
             if (element.interfaces.isNotEmpty()) {
                 throw IllegalEventGroupException("${TAG}Inherited interface [${element.simpleName}] brings complexity, it is not allowed.")

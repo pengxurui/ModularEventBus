@@ -59,11 +59,15 @@ class EventMeta(
          *
          * @return null if not a method program element, or annotated with @Ignore.
          */
-        fun parseEventMeta(element: Element, moduleNameInEventGroup: String, autoClearInEventGroup: Boolean): EventMeta? {
+        fun parseEventMeta(element: Element, logger: Logger, moduleNameInEventGroup: String, autoClearInEventGroup: Boolean): EventMeta? {
+            if (null != element.getAnnotation(Ignore::class.java)) {
+                return null
+            }
             if (element !is ExecutableElement) {
                 return null
             }
-            if (null != element.getAnnotation(Ignore::class.java)) {
+            if (element.kind != ElementKind.METHOD) {
+                // Filter constructor、static init and instance init.
                 return null
             }
             val annotation = element.getAnnotation(Event::class.java)

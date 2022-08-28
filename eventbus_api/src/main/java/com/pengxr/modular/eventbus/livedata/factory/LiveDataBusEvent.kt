@@ -16,22 +16,22 @@ internal class LiveDataBusEvent<T>(eventName: String, dataClazz: Class<T>, nulla
 
     override fun post(value: T?): IEvent<T> {
         LiveDataBus.with(eventName, dataClazz, nullable, autoClear).post(value)
-        return this
+        return super.post(value)
     }
 
     override fun postDelay(value: T?, delay: Long): IEvent<T> {
         LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postDelay(value, delay)
-        return this
+        return super.postDelay(value, delay)
     }
 
     override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
         LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postDelay(value, delay, producer)
-        return this
+        return super.postDelay(value, delay, producer)
     }
 
     override fun postOrderly(value: T?): IEvent<T> {
         LiveDataBus.with(eventName, dataClazz, nullable, autoClear).postOrderly(value)
-        return this
+        return super.postOrderly(value)
     }
 
     override fun observe(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {

@@ -69,10 +69,10 @@ class ModularEventBusProcessor : BaseProcessor() {
 
         for (groupElement: Element in groupElements) {
             // 2.1 Parse information of element annotated with @EventGroup.
-            val groupMeta = (EventGroupMeta.parseMeta(groupElement) ?: continue).apply {
+            val groupMeta = (EventGroupMeta.parseMeta(groupElement, logger) ?: continue).apply {
                 for (memberElement: Element in groupElement.enclosedElements) {
                     // 2.2 Parse information of enclosed methods.
-                    addEventMeta(EventMeta.parseEventMeta(memberElement, moduleName, autoClear) ?: continue)
+                    addEventMeta(EventMeta.parseEventMeta(memberElement, logger, moduleName, autoClear) ?: continue)
                 }
             }
             groupMetas.add(groupMeta)

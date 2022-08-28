@@ -4,7 +4,6 @@ import com.pengxr.modular.eventbus.facade.exception.IllegalEventBusFactoryExcept
 import com.pengxr.modular.eventbus.facade.factory.IEventFactory
 import com.pengxr.modular.eventbus.facade.template.BaseEvent
 import com.pengxr.modular.eventbus.livedata.factory.LiveDataBusEventFactory
-
 /**
  * __   __  _____               ____    _____    ______   _   _    _____
  * \ \ / / |_   _|     /\      / __ \  |  __ \  |  ____| | \ | |  / ____|
@@ -25,6 +24,12 @@ object ModularEventBus {
      * Throw NullEventException while posting notnull event, always throw on debug type.
      */
     private var throwNullEventException = false
+
+    /**
+     * Global EventListener
+     */
+    var eventListener: IEventListener? = null
+        private set
 
     /**
      * Default eventbus type.
@@ -64,6 +69,11 @@ object ModularEventBus {
 
     fun throwNullEventException(isThrow: Boolean): ModularEventBus {
         this.throwNullEventException = isThrow
+        return this
+    }
+
+    fun setEventListener(eventListener: IEventListener): ModularEventBus {
+        this.eventListener = eventListener
         return this
     }
 
