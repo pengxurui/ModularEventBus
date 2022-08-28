@@ -65,5 +65,5 @@ dependencies {
     implementation project(":sampleOrderLib")
     // Proguard test.
 //    implementation files("libs/sampleOrderLib-release.aar")
-    kapt "com.pengxr.android:modular-eventbus-processor:1.0.0"
+    kapt "io.github.pengxurui:modular-eventbus-processor:1.0.2-SNAPSHOT"
 }

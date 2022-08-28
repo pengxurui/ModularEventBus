@@ -19,6 +19,13 @@ import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 
 /**
+ * __   __  _____               ____    _____    ______   _   _    _____
+ * \ \ / / |_   _|     /\      / __ \  |  __ \  |  ____| | \ | |  / ____|
+ *  \ V /    | |      /  \    | |  | | | |__) | | |__    |  \| | | |  __
+ *   > <     | |     / /\ \   | |  | | |  ___/  |  __|   | . ` | | | |_ |
+ *  / . \   _| |_   / ____ \  | |__| | | |      | |____  | |\  | | |__| |
+ * /_/ \_\ |_____| /_/    \_\  \____/  |_|      |______| |_| \_|  \_____|
+ *
  * A processor used for find events and generated EventsDefine file.
  * <p>
  * Created by pengxr on 10/8/2022

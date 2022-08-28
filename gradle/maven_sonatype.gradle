@@ -1,40 +1,55 @@
+// 在 ARouter 项目的 publish.gradle 上修改
+// 建议使用 vanniktech 的 gradle-maven-publish-plugin
+
 apply plugin: 'maven'
 apply plugin: 'signing'
 
 version = VERSION_NAME
 group = GROUP
 
+// 是否 Release 发布（根据是否包含 SNAPSHOT 判断）
 def isReleaseBuild() {
     return VERSION_NAME.contains("SNAPSHOT") == false
 }
 
+// Central Repository: https://central.sonatype.org/publish/publish-guide/
+// Release 仓库地址（默认先发布到 staging 暂存库，需要手动发布到中央仓库）
 def getReleaseRepositoryUrl() {
-    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
+// Snapshot 仓库地址
 def getSnapshotRepositoryUrl() {
-    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL : "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 }
 
+// 仓库账号
 def getRepositoryUsername() {
     return hasProperty('SONATYPE_NEXUS_USERNAME') ? SONATYPE_NEXUS_USERNAME : ""
 }
 
+// 仓库密码
 def getRepositoryPassword() {
     return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
 }
 
+// 组件配置
 def configurePom(pom) {
+    // 组织名
     pom.groupId = GROUP
+    // 组件名
     pom.artifactId = POM_ARTIFACT_ID
+    // 组件版本
     pom.version = VERSION_NAME
 
     pom.project {
+        // 名称
         name POM_NAME
+        // 发布格式
         packaging POM_PACKAGING
+        // 描述信息
         description POM_DESCRIPTION
+        // 主页
         url POM_URL
 
         scm {
@@ -43,6 +58,7 @@ def configurePom(pom) {
             developerConnection POM_SCM_DEV_CONNECTION
         }
 
+        // Licenses 信息
         licenses {
             license {
                 name POM_LICENCE_NAME
@@ -50,47 +66,60 @@ def configurePom(pom) {
                 distribution POM_LICENCE_DIST
             }
         }
+
+        // 开发者信息
+        developers {
+            developer {
+                id POM_DEVELOPER_ID
+                name POM_DEVELOPER_NAME
+            }
+        }
     }
 }
 
 afterEvaluate { project ->
+    // 配置 Maven 插件的 uploadArchives 任务
     uploadArchives {
         repositories {
             mavenDeployer {
+                // 配置发布前需要签名
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
+                // 配置 Release 仓库地址与账号密码
                 repository(url: getReleaseRepositoryUrl()) {
                     authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
                 }
+                // 配置 Snapshot 仓库地址与账号密码
                 snapshotRepository(url: getSnapshotRepositoryUrl()) {
                     authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
                 }
-
+                // 配置 POM 信息
                 configurePom(pom)
             }
         }
     }
-
+    // 配置 Maven 本地发布任务
     tasks.create("installLocally", Upload) {
         configuration = configurations.archives
 
         repositories {
             mavenDeployer {
+                // 本地仓库地址
                 repository(url: "file://${rootProject.buildDir}/localMaven")
-
+                // 配置 POM 信息
                 configurePom(pom)
             }
         }
     }
 
+    // 配置签名参数，部分需要在 local.properties 中配置
     signing {
         required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
     }
 
-    if (project.getPlugins().hasPlugin('com.android.application') ||
-            project.getPlugins().hasPlugin('com.android.library')) {
-        task install(type: Upload, dependsOn: assemble) {
+    if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')) {
+        // Android 类型组件
+        task install(type: Upload, dependsOn: assemble) { // 依赖于 AGP assemble 任务
             repositories.mavenInstaller {
                 configuration = configurations.archives
 
@@ -108,28 +137,33 @@ afterEvaluate { project ->
             from androidJavadocs.destinationDir
         }
 
+        // 生成源码产物
         task androidSourcesJar(type: Jar) {
             classifier = 'sources'
             from android.sourceSets.main.java.source
         }
     } else {
+        // 纯 Java / Kotlin 类型组件（如 Gradle 插件、APT 组件）
         install {
             repositories.mavenInstaller {
                 configurePom(pom)
             }
         }
 
-        task sourcesJar(type: Jar, dependsOn:classes) {
+        // 生成源码产物
+        task sourcesJar(type: Jar, dependsOn: classes) {
             classifier = 'sources'
             from sourceSets.main.allSource
         }
 
-        task javadocJar(type: Jar, dependsOn:javadoc) {
+        // 生成 javadoc 产物
+        task javadocJar(type: Jar, dependsOn: javadoc) {
             classifier = 'javadoc'
             from javadoc.destinationDir
         }
     }
 
+    // Java8 适配
     if (JavaVersion.current().isJava8Compatible()) {
         allprojects {
             tasks.withType(Javadoc) {
@@ -138,14 +172,19 @@ afterEvaluate { project ->
         }
     }
 
-    artifacts {
-        if (project.getPlugins().hasPlugin('com.android.application') ||
-                project.getPlugins().hasPlugin('com.android.library')) {
-            archives androidSourcesJar
-            archives androidJavadocsJar
-        } else {
-            archives sourcesJar
-            archives javadocJar
+    // 配置源码和 Javadoc 发布产物
+    if (!isReleaseBuild()) {
+        // 快照版本跳过，提高效率
+        artifacts {
+            if (project.getPlugins().hasPlugin('com.android.application') || project.getPlugins().hasPlugin('com.android.library')) {
+                // Android 类型组件
+                archives androidSourcesJar // 源码
+                archives androidJavadocsJar // Javadoc，如果报错需要把这一行注释掉
+            } else {
+                // 纯 Java / Kotlin 类型组件（如 Gradle 插件、APT 组件）
+                archives sourcesJar // 源码
+                archives javadocJar // Javadoc
+            }
         }
     }
 }

@@ -1,7 +1,10 @@
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
-    id 'maven-publish'
+    // vanniktech 插件
+    id 'com.vanniktech.maven.publish'
+    // Kotlin Javadoc 插件
+    id 'org.jetbrains.dokka'
 }
 
 java {
@@ -9,26 +12,5 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-//task generateSourcesJar(type:Jar){
-//    from java.sourceSets.main.java.srcDirs
-//    classifier "sources"
-//}
-//
-//publishing {
-//    publications {
-//        annotation(MavenPublication) {
-//            from components.java
-////            artifact generateSourcesJar
-//            groupId 'com.pengxr.android'
-//            artifactId 'modular-eventbus-annotation'
-//            version "1.0.0"
-//        }
-//    }
-//    repositories {
-//        maven {
-//            url "$rootDir/localMavenRepository/snapshot"
-//        }
-//    }
-//}
-
-apply from: rootProject.file('gradle/publish.gradle')
+// 直接使用 maven 插件
+// apply from: rootProject.file('gradle/maven_sonatype.gradle')

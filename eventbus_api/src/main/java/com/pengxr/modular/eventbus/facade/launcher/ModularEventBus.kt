@@ -6,6 +6,13 @@ import com.pengxr.modular.eventbus.facade.template.BaseEvent
 import com.pengxr.modular.eventbus.livedata.factory.LiveDataBusEventFactory
 
 /**
+ * __   __  _____               ____    _____    ______   _   _    _____
+ * \ \ / / |_   _|     /\      / __ \  |  __ \  |  ____| | \ | |  / ____|
+ *  \ V /    | |      /  \    | |  | | | |__) | | |__    |  \| | | |  __
+ *   > <     | |     / /\ \   | |  | | |  ___/  |  __|   | . ` | | | |_ |
+ *  / . \   _| |_   / ____ \  | |__| | | |      | |____  | |\  | | |__| |
+ * /_/ \_\ |_____| /_/    \_\  \____/  |_|      |______| |_| \_|  \_____|
+ *
  * ModularEventBus facade.
  * <p>
  * Created by pengxr on 13/8/2022

@@ -2,10 +2,11 @@ buildscript {
     ext.kotlin_version = '1.6.21'
 
     repositories {
+        // snapshot 中央仓库
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'}
+        // 中央仓库
         mavenCentral()
         google()
-        maven { url "$rootDir/localMavenRepository/snapshot" }
-        maven { url "$rootDir/localMavenRepository/release" }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
@@ -13,22 +14,31 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        // classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.6.20"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
     }
 }
 
 allprojects {
     repositories {
+        // snapshot 中央仓库
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'}
+        // 本地仓库
         mavenLocal()
+        // 中央仓库
         mavenCentral()
         google()
-        maven { url "$rootDir/localMavenRepository/snapshot" }
-        maven { url "$rootDir/localMavenRepository/release" }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url "https://jitpack.io" }
+    }
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
     }
 }
