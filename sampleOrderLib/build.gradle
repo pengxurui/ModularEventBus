@@ -47,5 +47,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     api project(":sambleBaseLib")
-    kapt "io.github.pengxurui:modular-eventbus-processor:1.0.2-SNAPSHOT"
+    kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.3"
 }

@@ -49,6 +49,6 @@ dependencies {
 
     api 'com.github.pengxurui:kotlinutil:1.0.1'
 
-    api "io.github.pengxurui:modular-eventbus:1.0.2-SNAPSHOT"
-    kapt "io.github.pengxurui:modular-eventbus-processor:1.0.2-SNAPSHOT"
+    api "io.github.pengxurui:modular-eventbus-api:1.0.3"
+    kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.3"
 }
