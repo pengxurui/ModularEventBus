@@ -1,10 +1,12 @@
 package com.pengxr.modular.eventbus.compiler.model
 
+import com.pengxr.modular.eventbus.compiler.utils.Logger
 import com.pengxr.modular.eventbus.compiler.utils.SEPARATOR
 import com.pengxr.modular.eventbus.compiler.utils.isAnnotatedWithNullable
 import com.pengxr.modular.eventbus.facade.annotation.Event
 import com.pengxr.modular.eventbus.facade.annotation.Ignore
 import javax.lang.model.element.Element
+import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
@@ -40,6 +42,11 @@ class EventMeta(
      * AutoClear flag.
      */
     val autoClear: Boolean,
+
+    /**
+     * @Deprecated flag.
+     */
+    var isDeprecated: Boolean
 ) {
 
     companion object {
@@ -65,12 +72,14 @@ class EventMeta(
             // If return type is void, treat it as a nullable event.
             val nullable = returnType.kind == TypeKind.VOID || element.isAnnotatedWithNullable()
             val autoClearInEvent = annotation?.autoClear ?: autoClearInEventGroup
+            val isDeprecated = null != element.getAnnotation(java.lang.Deprecated::class.java)
             return EventMeta(
                 element = element,
                 eventName = eventName,
                 returnType = returnType,
                 nullable = nullable,
-                autoClear = autoClearInEvent
+                autoClear = autoClearInEvent,
+                isDeprecated = isDeprecated,
             )
         }
     }
@@ -80,7 +89,8 @@ class EventMeta(
             eventName = eventName,
             dataType = returnType.toString(),
             nullable = nullable,
-            autoClear = autoClear
+            autoClear = autoClear,
+            isDeprecated = isDeprecated,
         )
     }
 
@@ -91,6 +101,7 @@ class EventMeta(
                 ", returnType=" + returnType +
                 ", autoClear=" + autoClear +
                 ", nullable=" + nullable +
+                ", isDeprecated=" + isDeprecated +
                 '}'
     }
 }

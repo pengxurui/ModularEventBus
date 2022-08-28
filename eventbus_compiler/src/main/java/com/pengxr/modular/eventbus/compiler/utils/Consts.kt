@@ -26,6 +26,7 @@ const val INTERFACE_IEVENT = "$FACADE_PACKAGE$TEMPLATE_PACKAGE.IEvent"
 
 const val VOID = "java.lang.Void"
 const val SUPPRESS_WARNINGS = "java.lang.SuppressWarnings"
+const val DEPRECATED = "java.lang.Deprecated"
 
 // Log
 const val PREFIX_OF_LOGGER = "$PROJECT::Compiler "

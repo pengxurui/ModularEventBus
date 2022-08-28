@@ -96,6 +96,8 @@ class ModularEventBusProcessor : BaseProcessor() {
         val voidTypeMirror = elementUtils.getTypeElement(VOID).asType()
         // TypeMirror of annotation @SuppressWarnings
         val suppressTypeMirror = elementUtils.getTypeElement(SUPPRESS_WARNINGS).asType()
+        // TypeMirror of annotation @Deprecated
+        val deprecatedTypeMirror = elementUtils.getTypeElement(DEPRECATED).asType()
 
         // Traversal all EventGroupMeta and generated file EventsDefineOf[ModulaName].
         for (groupMeta: EventGroupMeta in groupMetas) {
@@ -108,11 +110,12 @@ class ModularEventBusProcessor : BaseProcessor() {
                 for (eventMeta in groupMeta.getAllEventMetas()) {
                     add(
                         MethodSpec.methodBuilder(eventMeta.element.simpleName.toString()).apply {
-                            // 3.1.1 Method prototype: public static IEvent<List<String>> eventName1() {
-                            // public
+                            // Method prototype: public static IEvent<List<String>> eventName1() {
+                            // 3.1.1 public
                             addModifiers(Modifier.PUBLIC)
-                            // static
+                            // 3.1.2 static
                             addModifiers(Modifier.STATIC)
+                            // 3.1.3 return
                             // Event data class type (void -> Void)
                             val returnType = if (eventMeta.returnType.kind == TypeKind.VOID)
                                 voidTypeMirror
@@ -120,9 +123,15 @@ class ModularEventBusProcessor : BaseProcessor() {
                                 eventMeta.element.returnType
                             val returnTypeSpec: TypeName = ParameterizedTypeName.get(ClassName.get(iEvent), ClassName.get(returnType))
                             returns(returnTypeSpec)
-                            // 3.1.3 Method body: return ModularEventBus.createObservable("LiveDataBus","moduleName$$eventName1",List.class);
                             // List<String>.class -> List.class
                             val dataTypeWithoutParameterType: TypeMirror = types.erasure(returnType)
+                            // 3.1.4 @Deprecated
+                            val deprecatedAnnotationSpec = if (groupMeta.isDeprecated) {
+                                AnnotationSpec.builder(ClassName.get(deprecatedTypeMirror) as ClassName).build()
+                            } else {
+                                null
+                            }
+                            // 3.1.5 Method body: return ModularEventBus.createObservable("LiveDataBus","moduleName$$eventName1",List.class);
                             addStatement(
                                 "return (\$T)(\$T.INSTANCE.createObservable(\$S, \$T.class,\$L,\$L))",
                                 returnTypeSpec,
@@ -132,6 +141,9 @@ class ModularEventBusProcessor : BaseProcessor() {
                                 eventMeta.nullable,
                                 eventMeta.autoClear
                             )
+                            if (null != deprecatedAnnotationSpec) {
+                                addAnnotation(deprecatedAnnotationSpec)
+                            }
                         }.build()
                     )
                 }
@@ -141,22 +153,32 @@ class ModularEventBusProcessor : BaseProcessor() {
             val constructorSpec = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build()
 
             // 3.3 @SuppressWarnings("unchecked")
-            val annotationSpec: AnnotationSpec = AnnotationSpec.builder(ClassName.get(suppressTypeMirror) as ClassName)
+            val uncheckAnnotationSpec: AnnotationSpec = AnnotationSpec.builder(ClassName.get(suppressTypeMirror) as ClassName)
                 .addMember("value", "\$S", "unchecked")
                 .build()
 
-            // 3.4 public class EventsDefineOfMyEventGroup implements IEventGroup.
+            // 3.4 @Deprecated
+            val deprecatedAnnotationSpec = if (groupMeta.isDeprecated) {
+                AnnotationSpec.builder(ClassName.get(deprecatedTypeMirror) as ClassName).build()
+            } else {
+                null
+            }
+
+            // 3.5 public class EventsDefineOfMyEventGroup implements IEventGroup.
             JavaFile.builder(
                 PACKAGE_OF_GENERATE_FILE,
-                TypeSpec.classBuilder(groupMeta.className)
-                    .addJavadoc("Auto generate code, do not modify!!!\n")
-                    .addJavadoc("@see \$L", groupMeta.element.toString())
-                    .addAnnotation(annotationSpec)
-                    .addModifiers(Modifier.PUBLIC)
-                    .addSuperinterface(ClassName.get(iEventGroup))
-                    .addMethods(methodSpecs)
-                    .addMethod(constructorSpec)
-                    .build()
+                TypeSpec.classBuilder(groupMeta.className).apply {
+                    addJavadoc("Auto generate code, do not modify!!!\n")
+                    addJavadoc("@see \$L", groupMeta.element.toString())
+                    if (null != deprecatedAnnotationSpec) {
+                        addAnnotation(deprecatedAnnotationSpec)
+                    }
+                    addAnnotation(uncheckAnnotationSpec)
+                    addModifiers(Modifier.PUBLIC)
+                    addSuperinterface(ClassName.get(iEventGroup))
+                    addMethods(methodSpecs)
+                    addMethod(constructorSpec)
+                }.build()
             ).build().writeTo(mFiler)
         }
     }

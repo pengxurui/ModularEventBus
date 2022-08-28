@@ -1,6 +1,7 @@
 package com.pengxr.modular.eventbus.compiler.model
 
 import com.pengxr.modular.eventbus.compiler.exception.IllegalEventGroupException
+import com.pengxr.modular.eventbus.compiler.utils.Logger
 import com.pengxr.modular.eventbus.compiler.utils.TAG
 import com.pengxr.modular.eventbus.facade.annotation.EventGroup
 import com.pengxr.modular.eventbus.facade.annotation.Ignore
@@ -33,7 +34,12 @@ class EventGroupMeta(
     /**
      * AutoClear flag.
      */
-    var autoClear: Boolean
+    var autoClear: Boolean,
+
+    /**
+     * @Deprecated flag.
+     */
+    var isDeprecated: Boolean
 ) {
 
     companion object {
@@ -53,19 +59,18 @@ class EventGroupMeta(
             if (element.interfaces.isNotEmpty()) {
                 throw IllegalEventGroupException("${TAG}Inherited interface [${element.simpleName}] brings complexity, it is not allowed.")
             }
-            if (null != element.getAnnotation(Ignore::class.java)) {
-                return null
-            }
             val groupAnnotation = element.getAnnotation(EventGroup::class.java) ?: return null
             val packageName = element.enclosingElement.toString()
             val className = "EventDefineOf${element.simpleName}"
             val moduleName = groupAnnotation.moduleName.ifEmpty { packageName }
             val autoClear = groupAnnotation.autoClear
+            val isDeprecated = null != element.getAnnotation(java.lang.Deprecated::class.java)
             return EventGroupMeta(
                 element = element,
                 className = className,
                 moduleName = moduleName,
-                autoClear = autoClear
+                autoClear = autoClear,
+                isDeprecated = isDeprecated
             )
         }
     }
@@ -90,11 +95,12 @@ class EventGroupMeta(
     fun extractDocInfo(): EventGroupDoc {
         return EventGroupDoc(
             group = className,
+            isDeprecated = isDeprecated,
             events = LinkedList<EventDoc>().apply {
                 eventMetas.forEach {
                     add(it.extractDocInfo())
                 }
-            }
+            },
         )
     }
 
@@ -104,6 +110,7 @@ class EventGroupMeta(
                 ", className=" + className +
                 ", moduleName=" + moduleName +
                 ", autoClear=" + autoClear +
+                ", isDeprecated=" + isDeprecated +
                 ", eventMetas=" + eventMetas.joinToString() +
                 '}'
     }

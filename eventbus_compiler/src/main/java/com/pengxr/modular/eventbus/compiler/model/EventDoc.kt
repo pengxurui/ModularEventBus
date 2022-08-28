@@ -18,5 +18,8 @@ class EventDoc(
     val nullable: Boolean,
 
     @JSONField(ordinal = 4)
-    val autoClear: Boolean
+    val autoClear: Boolean,
+
+    @JSONField(ordinal = 5)
+    var isDeprecated: Boolean
 )

@@ -12,5 +12,8 @@ class EventGroupDoc(
     val group: String,
 
     @JSONField(ordinal = 2)
-    val events: List<EventDoc>
+    val events: List<EventDoc>,
+
+    @JSONField(ordinal = 3)
+    var isDeprecated: Boolean
 )
