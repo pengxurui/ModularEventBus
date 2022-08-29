@@ -20,7 +20,7 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.48'
     implementation 'com.squareup:javapoet:1.10.0'
 
-    api "io.github.pengxurui:modular-eventbus-annotation:1.0.3"
+    api "io.github.pengxurui:modular-eventbus-annotation:1.0.4"
 }
 
 // 直接使用 maven 插件

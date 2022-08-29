@@ -6,19 +6,15 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.pengxr.ktx.delegate.viewBinding
 import com.pengxr.modular.eventbus.facade.exception.NullEventException
 import com.pengxr.modular.eventbus.generated.events.EventDefineOfLoginEvents
 import com.pengxr.modular.eventbus.generated.events.EventDefineOfMainEvents
 import com.pengxr.modular.eventbus.generated.events.EventDefineOfMainEventsKt
-import com.pengxr.sample.databinding.ActivityDemoBinding
 import com.pengxr.sample.utils.TAG
 import com.pengxr.sample.utils.toast
 import com.pengxr.sampleloginlib.entity.UserInfo
 
 class DemoActivity : AppCompatActivity() {
-
-    private val binding by viewBinding(ActivityDemoBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +88,6 @@ class DemoActivity : AppCompatActivity() {
 
     fun testProguard() {
         EventDefineOfLoginEvents.login().observe(this) { user: UserInfo? ->
-
         }
     }
 }
