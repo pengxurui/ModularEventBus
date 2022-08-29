@@ -1,3 +1,0 @@
--dontwarn com.pengxr.modular.eventbus.generated.**
--keep class com.pengxr.modular.eventbus.generated.** { *; }
--keep @com.pengxr.modular.eventbus.facade.annotation.EventGroup class * {*;}  # 可选

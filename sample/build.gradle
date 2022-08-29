@@ -66,8 +66,8 @@ dependencies {
     implementation "io.github.pengxurui:modular-eventbus-api:1.0.3"
     kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.3"
 
-    // implementation project(":sampleLoginLib")
+     implementation project(":sampleLoginLib")
     // Proguard test.
-    // implementation files("libs/sampleLoginLib-release-without-progurad-rules.aar")
-    implementation files("libs/sampleLoginLib-release.aar")
+    // implementation files("libs/sampleLoginLib-release-without-proguard-rules.aar")
+    // implementation files("libs/sampleLoginLib-release.aar")
 }
