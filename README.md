@@ -254,7 +254,13 @@ ModularEventBus 组件化事件总线框架的优点： **在保持发布者与�
 
 ### 1、定义事件
 
-- **使用注解定义事件：** 模板程序如下：
+- **使用注解定义事件：** 
+
+  - **@EventGroup 注解：** `@EventGroup` 注解用于定义事件组，修饰于 interface 接口上，在该类中定义的每个方法均视为一个事件定义；
+  
+  - **@Event 注解：** `@Event` 注解用于事件组中的事件定义，亦可省略。
+
+模板程序如下：
 
 `com.pengxr.sample.events.MainEvents.kt`
 ```
@@ -263,14 +269,60 @@ interface MainEvents {
 
     // 可以省略 @Event
     @Event
-    fun eventName(): String
+    fun open(): String
 }
 ```
 
-- **@EventGroup 注解：** `@EventGroup` 注解用于定义事件组，
+> **提示：** 以上即定义了一个 `MainEvents` 事件组，其中包含一个 `open` 事件且数据类型为 `String` 类型。
 
+亦兼容将 `@EventGroup` 修饰于 class 类而非 interface 接口，但会有编译时警告： `Annotated @EventGroup on a class type [IllegalEvent], expected a interface. Is that really what you want？`
 
-> **提示：** 兼容使用
+`错误示例`
+
+```
+@EventGroup
+class IllegalEvent {
+
+    fun illegalEvent() {
+
+    }
+}
+```
+
+- **使用 @Ignore 注解忽略定义：** 使用 `@Ignore` 注解可以排除事件类或事件方法，使其不被视为事件定义。
+
+`示例程序`
+
+```
+// 可以修饰于事件类
+@Ignore
+@EventGroup
+interface IgnoreEvent {
+
+    // 亦可修饰于事件方法
+    @Ignore
+    fun ignoredMethod()
+
+    fun method()
+}
+```
+
+- **使用 @Deprecated 注解提示过时：** 使用 `@Deprecated` 注解可以标记事件过时，与 `@Ignore` 不同是，`@Deprecated` 修饰的类或方法是有效的事件定义。
+
+`示例程序`
+
+```
+// 虽然过时，但依然是有效的事件定义
+@Deprecated("Don't use it.")
+@EventGroup
+interface DeprecatedEvent {
+
+    @Deprecated("Don't use it.")
+    fun deprecatedMethod()
+}
+```
+
+- 定义
 
 
 ## 常见问题 Q&A
