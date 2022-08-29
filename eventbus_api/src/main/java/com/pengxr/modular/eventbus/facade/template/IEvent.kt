@@ -18,7 +18,7 @@ interface IEvent<T> {
      * @param value Event data.
      */
     @AnyThread
-    fun post(value: T?): IEvent<T>
+    fun post(value: T?)
 
     /**
      * Send a delay event. If this method is called from the background thread, it will post a runnable to the
@@ -28,7 +28,7 @@ interface IEvent<T> {
      * @param delay Delay time.
      */
     @AnyThread
-    fun postDelay(value: T?, delay: Long): IEvent<T>
+    fun postDelay(value: T?, delay: Long)
 
     /**
      * Send a delay event. If this method is called from the background thread, it will post a runnable to the
@@ -40,7 +40,7 @@ interface IEvent<T> {
      * @param producer LifecycleOwner of the event producer.
      */
     @AnyThread
-    fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T>
+    fun postDelay(value: T?, delay: Long, producer: LifecycleOwner)
 
     /**
      * Send a event now. It ensures the receiving order is consistent with the sending order.
@@ -48,7 +48,7 @@ interface IEvent<T> {
      * @param value Event data.
      */
     @AnyThread
-    fun postOrderly(value: T?): IEvent<T>
+    fun postOrderly(value: T?)
 
     /**
      * Register a new observer, and associated with the lifecycle of owner.
@@ -59,7 +59,7 @@ interface IEvent<T> {
      * @param consumer LifecycleOwner of the event consumer.
      * @param observer Event observer.
      */
-    fun observe(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T>
+    fun observe(consumer: LifecycleOwner, observer: Observer<T?>)
 
     /**
      * Register a new observer, and associated with the lifecycle of owner. It will received event
@@ -68,14 +68,14 @@ interface IEvent<T> {
      * @param consumer LifecycleOwner of the event consumer.
      * @param observer Event observer.
      */
-    fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T>
+    fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>)
 
     /**
      * Register a new observer forever, it's expected to unregister after.
      *
      * @param observer Event observer.
      */
-    fun observeForever(observer: Observer<T?>): IEvent<T>
+    fun observeForever(observer: Observer<T?>)
 
     /**
      * Register a new observer forever, it's expected to unregister after. It will received event
@@ -83,16 +83,16 @@ interface IEvent<T> {
      *
      * @param observer Event observer.
      */
-    fun observeStickyForever(observer: Observer<T?>): IEvent<T>
+    fun observeStickyForever(observer: Observer<T?>)
 
     /**
      * Unregister a observer.
      * @param observer Event observer.
      */
-    fun removeObserver(observer: Observer<T?>): IEvent<T>
+    fun removeObserver(observer: Observer<T?>)
 
     /**
      * Remove event sent.
      */
-    fun removeStickyEvent(): IEvent<T>
+    fun removeStickyEvent()
 }

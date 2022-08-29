@@ -19,83 +19,73 @@ internal class LiveEvent<T>(private val liveData: UnPeekLiveData<T?>) : IEvent<T
     private val mainHandler = Handler(Looper.getMainLooper())
 
     @SuppressLint("WrongThread")
-    override fun post(value: T?): IEvent<T> {
+    override fun post(value: T?) {
         if (isMainThread()) {
             liveData.value = value
         } else {
             mainHandler.post { liveData.value = value }
         }
-        return this
     }
 
-    override fun postDelay(value: T?, delay: Long): IEvent<T> {
+    override fun postDelay(value: T?, delay: Long) {
         mainHandler.postDelayed({ liveData.value = value }, delay)
-        return this
     }
 
-    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
+    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner) {
         mainHandler.postDelayed({
             if (producer.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                 liveData.value = value
             }
         }, delay)
-        return this
     }
 
-    override fun postOrderly(value: T?): IEvent<T> {
+    override fun postOrderly(value: T?) {
         mainHandler.post {
             liveData.value = value
         }
-        return this
     }
 
-    override fun observe(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
+    override fun observe(consumer: LifecycleOwner, observer: Observer<T?>) {
         if (isMainThread()) {
             liveData.observe(consumer, observer)
         } else {
             mainHandler.post { liveData.observe(consumer, observer) }
         }
-        return this
     }
 
-    override fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
+    override fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>) {
         if (isMainThread()) {
             liveData.observeSticky(consumer, observer)
         } else {
             mainHandler.post { liveData.observeSticky(consumer, observer) }
         }
-        return this
     }
 
-    override fun observeForever(observer: Observer<T?>): IEvent<T> {
+    override fun observeForever(observer: Observer<T?>) {
         if (isMainThread()) {
             liveData.observeForever(observer)
         } else {
             mainHandler.post { liveData.observeForever(observer) }
         }
-        return this
     }
 
-    override fun observeStickyForever(observer: Observer<T?>): IEvent<T> {
+    override fun observeStickyForever(observer: Observer<T?>) {
         if (isMainThread()) {
             liveData.observeStickyForever(observer)
         } else {
             mainHandler.post { liveData.observeStickyForever(observer) }
         }
-        return this
     }
 
-    override fun removeObserver(observer: Observer<T?>): IEvent<T> {
+    override fun removeObserver(observer: Observer<T?>) {
         if (isMainThread()) {
             liveData.removeObserver(observer)
         } else {
             mainHandler.post { liveData.removeObserver(observer) }
         }
-        return this
     }
 
-    override fun removeStickyEvent(): IEvent<T> {
+    override fun removeStickyEvent() {
         // Do nothing.
-        return this
     }
 }

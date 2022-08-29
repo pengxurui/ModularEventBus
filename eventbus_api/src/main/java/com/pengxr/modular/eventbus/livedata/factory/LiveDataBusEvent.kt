@@ -3,7 +3,6 @@ package com.pengxr.modular.eventbus.livedata.factory
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.pengxr.modular.eventbus.facade.template.BaseEvent
-import com.pengxr.modular.eventbus.facade.template.IEvent
 import com.pengxr.modular.eventbus.livedata.bus.LiveDataBus
 
 /**
@@ -30,34 +29,28 @@ internal class LiveDataBusEvent<T>(eventName: String, dataClazz: Class<T>, nulla
         LiveDataBus.with(eventName, dataClazz, autoClear).postOrderly(value)
     }
 
-    override fun observe(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
+    override fun observe(consumer: LifecycleOwner, observer: Observer<T?>) {
         LiveDataBus.with(eventName, dataClazz, autoClear).observe(consumer, observer)
-        return this
     }
 
-    override fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>): IEvent<T> {
+    override fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>) {
         LiveDataBus.with(eventName, dataClazz, autoClear).observeSticky(consumer, observer)
-        return this
     }
 
-    override fun observeForever(observer: Observer<T?>): IEvent<T> {
+    override fun observeForever(observer: Observer<T?>) {
         LiveDataBus.with(eventName, dataClazz, autoClear).observeForever(observer)
-        return this
     }
 
-    override fun observeStickyForever(observer: Observer<T?>): IEvent<T> {
+    override fun observeStickyForever(observer: Observer<T?>) {
         LiveDataBus.with(eventName, dataClazz, autoClear).observeStickyForever(observer)
-        return this
     }
 
-    override fun removeObserver(observer: Observer<T?>): IEvent<T> {
+    override fun removeObserver(observer: Observer<T?>) {
         LiveDataBus.with(eventName, dataClazz, autoClear).removeObserver(observer)
-        return this
     }
 
-    override fun removeStickyEvent(): IEvent<T> {
+    override fun removeStickyEvent() {
         // Remove from LiveDataBus directly.
         LiveDataBus.removeStickyEvent(eventName)
-        return this
     }
 }

@@ -47,36 +47,32 @@ abstract class BaseEvent<T>(
         return false
     }
 
-    override fun post(value: T?): IEvent<T> {
+    override fun post(value: T?) {
         if (checkEventData(value)) {
             ModularEventBus.eventListener?.onEventPost(eventName, this, value)
             doPost(value)
         }
-        return this
     }
 
-    override fun postDelay(value: T?, delay: Long): IEvent<T> {
+    override fun postDelay(value: T?, delay: Long) {
         if (checkEventData(value)) {
             ModularEventBus.eventListener?.onEventPost(eventName, this, value)
             doPostDelay(value, delay)
         }
-        return this
     }
 
-    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner): IEvent<T> {
+    override fun postDelay(value: T?, delay: Long, producer: LifecycleOwner) {
         if (checkEventData(value)) {
             ModularEventBus.eventListener?.onEventPost(eventName, this, value)
             doPostDelay(value, delay, producer)
         }
-        return this
     }
 
-    override fun postOrderly(value: T?): IEvent<T> {
+    override fun postOrderly(value: T?) {
         if (checkEventData(value)) {
             ModularEventBus.eventListener?.onEventPost(eventName, this, value)
             doPostOrderly(value)
         }
-        return this
     }
 
     protected abstract fun doPost(value: T?)
