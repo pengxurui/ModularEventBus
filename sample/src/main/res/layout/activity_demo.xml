@@ -5,13 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:layout_margin="20dp"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".DemoActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickNonNullDataEvent"
+        android:text="Test NonNull Data Event" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickVoidDataEvent"
+        android:text="Test void Data Event" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickGenericDataEvent"
+        android:text="Test generic Data Event" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAutoClearEvent"
+        android:text="Test auto clear Data Event" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickLifecycleObserver"
+        android:text="Test lifecycle observer" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickDelayEvent"
+        android:text="Test delay event" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickLoginPage"
         android:text="Go to Login Page" />
 
     <Button

@@ -14,7 +14,13 @@
         android:theme="@style/Theme.ModularEventBus"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".DelayEventDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LifecycleObserverDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DemoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
