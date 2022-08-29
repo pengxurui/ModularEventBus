@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.pengxr.ktx.delegate.viewBinding
 import com.pengxr.modular.eventbus.facade.exception.NullEventException
-import com.pengxr.modular.eventbus.generated.events.*
+import com.pengxr.modular.eventbus.generated.events.EventDefineOfLoginEvents
+import com.pengxr.modular.eventbus.generated.events.EventDefineOfMainEvents
+import com.pengxr.modular.eventbus.generated.events.EventDefineOfMainEventsKt
 import com.pengxr.sample.databinding.ActivityDemoBinding
 import com.pengxr.sample.utils.TAG
 import com.pengxr.sample.utils.toast
-import com.pengxr.sampleloginlib.events.UserInfo
-import com.pengxr.sampleorderlib.OrderActivity
-import com.pengxr.sampleorderlib.events.OrderInfo
+import com.pengxr.sampleloginlib.entity.UserInfo
 
 class DemoActivity : AppCompatActivity() {
 
@@ -38,27 +38,6 @@ class DemoActivity : AppCompatActivity() {
 
         EventDefineOfMainEventsKt.genericEvent().observe(this) {
             Log.i(TAG, it!!.joinToString())
-        }
-
-        // LoginLib events.
-        EventDefineOfLoginEvents.login().observe(this) { value: UserInfo? ->
-            binding.tvStatusLogin.text = "LoginLib Status: ${value?.userName}"
-        }
-        EventDefineOfLoginEvents.logout().observe(this) { _: Void? ->
-            binding.tvStatusLogin.text = "LoginLib Status:"
-        }
-
-        // OrderLib events.
-        EventDefineOfOrderEvents.commit().observeForever { value: OrderInfo? ->
-            binding.tvStatusOrder.text = "OrderLib Status: ${value?.status}"
-        }
-        EventDefineOfOrderEvents.pay().observe(this) { value: OrderInfo? ->
-            binding.tvStatusOrder.text = "OrderLib Status: ${value?.status}"
-        }
-
-        // BaseLib events.
-        EventDefineOfBaseEvents.event5().observeStickyForever { value: List<Set<Map<String, List<String>>>>? ->
-            binding.tvStatusBase.text = "BaseLib Status：${value?.joinToString()}"
         }
     }
 
@@ -111,7 +90,9 @@ class DemoActivity : AppCompatActivity() {
         startActivity(Intent(this, DelayEventDemoActivity::class.java))
     }
 
-    fun onClickOrderPage(view: View) {
-        startActivity(Intent(this, OrderActivity::class.java))
+    fun testProguard() {
+        EventDefineOfLoginEvents.login().observe(this) { user: UserInfo? ->
+
+        }
     }
 }

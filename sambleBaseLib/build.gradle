@@ -47,8 +47,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
 
-    api 'com.github.pengxurui:kotlinutil:1.0.1'
-
     api "io.github.pengxurui:modular-eventbus-api:1.0.3"
     kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.3"
 }

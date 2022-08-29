@@ -61,9 +61,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    implementation project(":sampleLoginLib")
-    implementation project(":sampleOrderLib")
-    // Proguard test.
-//    implementation files("libs/sampleOrderLib-release.aar")
+    implementation 'com.github.pengxurui:kotlinutil:1.0.1'
+
+    implementation "io.github.pengxurui:modular-eventbus-api:1.0.3"
     kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.3"
+
+    // implementation project(":sampleLoginLib")
+    // Proguard test.
+    // implementation files("libs/sampleLoginLib-release-without-progurad-rules.aar")
+    implementation files("libs/sampleLoginLib-release.aar")
 }

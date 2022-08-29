@@ -1,4 +1,4 @@
-package com.pengxr.sampleloginlib.events
+package com.pengxr.sampleloginlib.entity
 
 /**
  * User information.
