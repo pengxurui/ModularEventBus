@@ -51,9 +51,9 @@
 
 ### 最新版本
 
-模块|modular-eventbus-api|modular-eventbus-compiler|modular-eventbus-annotation
----|---|---|---
-最新版本|[![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-api)|[![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-compiler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-compiler)|[![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-annotation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-annotation)
+|模块|modular-eventbus-api|modular-eventbus-compiler|modular-eventbus-annotation|
+|---|---|---|---|
+|最新版本|[![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-api/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-api) | [![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-compiler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-compiler) | [![Download](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-annotation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.pengxurui/modular-eventbus-annotation)
 
 ### Demo 展示
 
@@ -61,67 +61,68 @@
 
 ### 常见事件总线框架对比
 
-以下从多个维度对比常见的事件总线框架：
+以下从多个维度对比常见的事件总线框架（ ✅ 良好支持、☑ 支持、❌ 不支持）：
 
-| 事件总线 | ModularEventBus | modular-event | LiveEventBus | LiveDataBus | EventBus | RxBus |
-| --- | --- | --- | --- | --- | --- | --- |
-| 开发者 | @彭旭锐 | @美团 | @JeremyLiao | / | @greenrobot | / |
-| Github Star | 0 | 未开源 | 3.4k | / | 24.1k | / |
-| 生成事件文档 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| 非空数据拦截 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| 无数据事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| 泛型事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| 自动清除空闲事件 | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| 事件强约束 | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| 生命周期感知 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| 延迟发送事件 | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| 有序接收事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 订阅 Sticky 事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 移除 Sticky 事件 | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| 线程调度 | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| 跨进程 / 跨 App | ❌（可支持） | ❌ | ✅ | ❌ | ❌ | ❌ |
+| 事件总线 | ModularEventBus | modular-event | SmartEventBus | LiveEventBus | LiveDataBus | EventBus | RxBus |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 开发者 | @彭旭锐 | @美团 | @JeremyLiao | @JeremyLiao | / | @greenrobot | / |
+| Github Star | 0 | 未开源 | 146 | 3.4k | / | 24.1k | / |
+| 生成事件文档 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 非空数据拦截 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 无数据事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 泛型事件 | ✅ | ❌ |  ☑ |  ☑ | ❌ | ❌ | ❌ |
+| 自动清除空闲事件 | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| 事件强约束 | ✅ | ☑ | ☑ | ❌ | ❌ | ❌ | ❌ |
+| 生命周期感知 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| 延迟发送事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| 有序接收事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 订阅 Sticky 事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 移除 Sticky 事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| 线程调度 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| 跨进程 / 跨 App | ❌（可支持） | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| 关键原理| APT+静态代理 | APT+动态代理| APT+静态代理 | LiveData | LiveData | APT | RxJava|
 
 ### ModularEventBus 特性一览
 
 **1、事件强约束**
 
-✅  支持零配置快速使用；
+✅  支持零配置快速使用；
 
-✅  支持 APT 注解处理器自动生成事件接口类；
+✅  支持 APT 注解处理器自动生成事件接口类；
 
-✅  支持编译时合法性校验和警告提示；
+✅  支持编译时合法性校验和警告提示；
 
-✅  支持自动生成事件文档；
+✅  支持自动生成事件文档；
 
-✅  支持增量编译；
+✅  支持增量编译；
 
 **2、Lifecycle 生命周期感知**
 
-✅  内置基于 LiveData 的 LiveDataBus；
+✅  内置基于 LiveData 的 LiveDataBus；
 
-✅   支持自动取消订阅，避免内存泄漏；
+✅  支持自动取消订阅，避免内存泄漏；
 
-✅  支持安全地发送事件与接收事件，避免产生空指针异常或不必要的性能损耗
-
-✅  支持自动清除没有关联订阅者的 LiveData 以释放内存；
-
-**3、更多特性支持**
-
-✅  支持 Java / Kotlin；
-
-✅  支持 AndroidX；
-
-✅  支持订阅 Sticky 粘性事件，支持移除 Sticky 粘性事件；
+✅  支持安全地发送事件与接收事件，避免产生空指针异常或不必要的性能损耗；
 
 ✅  支持永久订阅事件；
 
-✅  支持 Generic 泛型事件，如 List<String> 事件；
+✅  支持自动清除没有关联订阅者的 LiveData 以释放内存；
 
-✅   支持不携带数据的事件；
+**3、更多特性支持**
 
-✅  支持延迟发送事件；
+✅  支持 Java / Kotlin；
 
-✅  支持有序接收事件。
+✅  支持 AndroidX；
+
+✅  支持订阅 Sticky 粘性事件，支持移除 Sticky 粘性事件；
+
+✅  支持 Generic 泛型事件，如 List<String> 事件；
+
+✅  支持不携带数据的事件；
+
+✅  支持延迟发送事件；
+
+✅  支持有序接收事件。
 
 ## ModularEventBus 快速使用
 
@@ -160,6 +161,7 @@ data class UserInfo(val userName: String)
 interface LoginEvents {
 
   // 事件名：login
+  // 事件数据类型：UserInfo
   fun login(): UserInfo
 
   // 事件名：logout
@@ -167,7 +169,31 @@ interface LoginEvents {
 }
 ```
 
-- **4、订阅事件**
+- **4、执行注解处理器：** 执行 `Make Project` 或 `Rebuild Project` 等多种方式都可以触发注解处理器，处理器将根据事件定义自动生成相应的事件接口。例如，LoginEvents 对应的事件接口为：
+
+`com.pengxr.modular.eventbus.generated.EventDefineOfLoginEvents.java`
+
+```kotlin
+/**
+ * Auto generate code, do not modify!!!
+ * @see com.pengxr.sampleloginlib.events.LoginEvents 
+ */
+@SuppressWarnings("unchecked")
+public class EventDefineOfLoginEvents implements IEventGroup {
+    private EventDefineOfLoginEvents() {
+    }
+
+    public static IEvent<UserInfo> login() {
+        return (IEvent<UserInfo>)(ModularEventBus.INSTANCE.createObservable("com.pengxr.sampleloginlib.events$$login", UserInfo.class,false,true));
+    }
+
+    public static IEvent<Void> logout() {
+        return (IEvent<Void>)(ModularEventBus.INSTANCE.createObservable("com.pengxr.sampleloginlib.events$$logout", Void.class,true,false));
+    }
+}
+```
+
+- **5、订阅事件：** 使用 `EventDefineOfLoginEvents` 提供的静态方法订阅事件：
 
 `订阅者示例`
 
@@ -183,7 +209,7 @@ EventDefineOfLoginEvents.logout().observeForever { _: Void? ->
 }
 ```
 
-- **5、发布事件**
+- **6、发布事件：** 使用 `EventDefineOfLoginEvents` 提供的静态方法发布事件：
 
 `发布者示例`
 
@@ -193,35 +219,12 @@ EventDefineOfLoginEvents.login().post(UserInfo("XIAOPENG"))
 EventDefineOfLoginEvents.logout().post(null)
 ```
 
-- **6、添加混淆规则（如果使用了 minifyEnabled true）：**
+- **7、添加混淆规则（如果使用了 minifyEnabled true）：**
 
 ```
 -dontwarn com.pengxr.modular.eventbus.generated.**
 -keep class com.pengxr.modular.eventbus.generated.** { *; }
 -keep @com.pengxr.modular.eventbus.facade.annotation.EventGroup class * {*;} # 可选
-```
-
-以上示例事件由注解处理器自动生成的代码如下：
-
-`EventDefineOfLoginEvents.java`
-
-```kotlin
-/**
- * Auto generate code, do not modify!!!
- * @see com.pengxr.sampleloginlib.events.LoginEvents */
-@SuppressWarnings("unchecked")
-public class EventDefineOfLoginEvents implements IEventGroup {
-  private EventDefineOfLoginEvents() {
-  }
-
-  public static IEvent<UserInfo> login() {
-    return (IEvent<UserInfo>)(ModularEventBus.INSTANCE.createObservable("com.pengxr.sampleloginlib.events$$login", UserInfo.class,false,true));
-  }
-
-  public static IEvent<Void> logout() {
-    return (IEvent<Void>)(ModularEventBus.INSTANCE.createObservable("com.pengxr.sampleloginlib.events$$logout", Void.class,true,false));
-  }
-}
 ```
 
 ## 认识事件总线
@@ -235,9 +238,13 @@ public class EventDefineOfLoginEvents implements IEventGroup {
 然而，成也萧何败萧何，彻底地解耦也容易让事件总线被滥用，用时一时爽，维护火葬场。我将事件总线框架存在的问题概括为以下 5 种常见问题：
 
 - **1、消息难溯源：** 在阅读源码的过程中，如果需要查找发布事件或订阅事件的地方，只能通过查找事件引用的方式进行溯源，增大梳理代码逻辑的难度。特别是当项目中到处是临时事件时，难度会大大增加；
+
 - **2、临时事件滥用：** 由于事件总线框架对事件定义没有强制的约束，开发者可以在项目的各个角落随意定义事件，增大后期维护的难度；
-- **3、数据类型转换错误：** 当订阅方使用与发送方不一致的数据类型来接收事件时，会在运行时发生类型转换错误。在发生事件命名冲突和事件命名疏忽时，会大大增加发生类型转换错误的概率。
+
+- **3、数据类型转换错误：** 当订阅方使用与发送方不一致的数据类型来接收事件时，会在运行时发生类型转换错误。在发生事件命名冲突和事件命名疏忽时，会大大增加发生类型转换错误的概率；
+
 - **4、事件命名重复：** 由于事件总线框架对事件命名没有强制的约束，有可能出现不同组件恰好定义了重名的事件，订阅方就会收到并没有真正发生的事件，产生逻辑混乱。如果重名的事件使用了不同的数据类型，那么还会出现运行时类型转换错误；
+
 - **5、事件命名疏忽：** 与 ”事件命名重复“ 类似，由于事件总线框架对事件命名没有强制的约束，有可能出现开发者复制粘贴后忘记修改事件变量值的问题，或者变量值拼写错误（例如 `login_success` 拼写为 `login_succese`），那么订阅方将永远收不到事件。
 
 ### ModularEventBus 的优点
@@ -245,9 +252,13 @@ public class EventDefineOfLoginEvents implements IEventGroup {
 ModularEventBus 组件化事件总线框架的优点： **在保持发布者与订阅者的解耦的优势下，解决上述事件总线框架中存在的通病。** 具体通过以下 5 个手段实现：
 
 - **1、事件声明聚合：** 发布者和订阅者只能使用预定义的事件，严格禁止使用临时事件，事件需要按照约定聚合定义在一个文件中（解决临时事件滥用问题）；
-- **2、区分不同组件的同名事件：** 在定义事件时需要指定事件所属 moduleName，框架自动使用 `”[moduleName]$$[eventName]“` 作为最终的事件名（解决事件命名重复问题）；
+
+- **2、区分不同组件的同名事件：** 在定义事件时需要指定事件所属 moduleName，框架自动使用 `"[moduleName]$$[eventName]"` 作为最终的事件名（解决事件命名重复问题）；
+
 - **3、事件数据类型声明：** 在定义事件时需要指定事件的数据类型，框架自动使用该数据类型发送事件（解决数据类型转换错误问题）；
+
 - **4、接口强约束：** 运行时使用事件接口进行消息发布和订阅，而不需要手动输入事件名和数据类型（解决事件命名命名错误）；
+
 - **5、APT 生成接口类：** 框架在编译时使用 APT 注解处理器自动生成事件接口类。
 
 ## 完整使用文档
@@ -273,7 +284,7 @@ interface MainEvents {
 }
 ```
 
-> **提示：** 以上即定义了一个 `MainEvents` 事件组，其中包含一个 `open` 事件且数据类型为 `String` 类型。
+> **提示：** 以上即定义了一个 `MainEvents` 事件组，其中包含一个 `com.pengxr.sample.events$$open` 事件且数据类型为 `String` 类型。
 
 亦兼容将 `@EventGroup` 修饰于 class 类而非 interface 接口，但会有编译时警告： `Annotated @EventGroup on a class type [IllegalEvent], expected a interface. Is that really what you want？`
 
@@ -322,10 +333,208 @@ interface DeprecatedEvent {
 }
 ```
 
-- 定义
+- **定义事件数据类型：** 事件方法返回值即表示事件数据类型，支持泛型（如 List<String>），亦支持不携带数据的无数据事件。以下均为合法定义：
+
+`Java 示例程序`
+
+```
+// 事件数据类型为 String
+String stringEventInJava();
+
+// 事件数据类型为 List<String>
+List<String> listEventInJava();
+
+// 以下均视为无数据事件
+void voidEventInJava1();
+Void voidEventInJava2();
+```
+
+`Kotlin 示例程序`
+```
+// 事件数据类型为 String
+fun stringEventInKotlin(): String
+
+// 事件数据类型为 List<String>
+fun listEventInKotlin(): List<String>
+
+// 以下均视为无数据事件
+fun voidEventInKotlin1()
+fun voidEventInKotlin2(): Unit
+fun voidEventInKotlin3(): Unit?
+```
+
+- **定义事件数据可空性：** 使用 `@Nullable` 或 `@NonNull` 注解表示事件数据可空性，默认是为可空类型。以下均为合法定义：
+
+`Java 示例程序`
+
+```
+@NonNull
+String nonNullEventInJava();
+
+@Nullable
+String nullableEventInJava();
+
+// 默认视为 @Nullable
+String eventInJava();
+```
+
+`Kotlin 示例程序`
+
+```
+fun nonNullEventInKotlin(): String
+
+// 提示：Kotlin 编译器将返回值上的 ? 号视为 @org.jetbrains.annotations.Nullable
+fun nullableEventInKotlin(): String?
+```
+
+以下为支持的可空性注解：
+
+```
+org.jetbrains.annotations.Nullable
+android.annotation.Nullable
+androidx.annotation.Nullable
+
+org.jetbrains.annotations.NotNull
+android.annotation.NonNull
+androidx.annotation.NonNull
+```
+- **定义自动清除事件：** 支持配置在事件没有关联的订阅者时自动被清除（以释放内存），默认值为 false。亦可以使用 `@EventGroup` 注解或 `@Event` 注解进行修改，以 `@Event` 的取值优先。
+
+`示例程序`
+
+```
+@EventGroup(autoClear = true)
+interface MainEvents {
+
+    @Event(autoClear = false)
+    fun normalEvent(): String
+    
+    // 继承 @EventGroup 中的 autoClear 取值
+    fun autoClearEvent(): String
+}
+```
+
+- **定义事件组名：** 为避免不同组件中的事件名重复，框架自动使用 `"[moduleName]$$[eventName]"` 作为最终的事件名。默认使用事件组的包名作为 `moduleName`，亦可使用`@EventGroup` 注解进行修改。
+
+`示例程序`
+
+`com.pengxr.sample.events.MainEvents.kt`
+```
+@EventGroup(moduleName = "main")
+interface MainEvents {
+
+    fun open(): String
+}
+```
+
+> **提示：** 以上即定义了一个 `MainEvents` 事件组，其中包含一个 `main$$open` 事件且数据类型为 `String` 类型。
+
+### 2、执行注解处理器
+
+在完成事件定义后，执行 `Make Project` 或 `Rebuild Project` 等多种方式都可以触发注解处理器，处理器将根据事件定义自动生成相应的事件接口。例如，MainEvents 对应的事件接口为：
+
+`com.pengxr.modular.eventbus.generated.events.EventDefineOfMainEvents.java`
+```
+/**
+ * Auto generate code, do not modify!!!
+ * @see com.pengxr.sample.events.MainEvents 
+ */
+@SuppressWarnings("unchecked")
+public class EventDefineOfMainEvents implements IEventGroup {
+    private EventDefineOfMainEvents() {
+    }
+
+    public static IEvent<String> open() {
+      return (IEvent<String>)(ModularEventBus.INSTANCE.createObservable("main$$open", String.class,false,false));
+    }
+}
+```
+
+`EventDefineOfMainEvents` 中的静态方法分别对应于定义在 `MainEvent` 事件组中的每个事件，而发布者和订阅者直接通过静态方法获取事件实例，而不再通过手动输入事件名字符串或事件数据类型获得事件实例，故而避免事件名错误或数据类型错误等问题。
+
+所有的事件实例均是 `IEvent` 泛型接口的实现类，例如 `open` 事件对应于 `IEvent<String>` 类型的实例，接口完整定义如下：
+
+`IEvent.kt`
+```
+interface IEvent<T> {
+
+    /**
+     * 发布事件，允许在子线程发布
+     */
+    @AnyThread
+    fun post(value: T?)
+
+    /**
+     * 延迟发布事件，允许在子线程发布
+     */
+    @AnyThread
+    fun postDelay(value: T?, delay: Long)
+
+    /**
+     * 延迟发布事件，在准备发布前会检查 producer 处于活跃状态，允许在子线程发布。
+     *
+     * @param producer 发布者的 LifecycleOwner
+     */
+    @AnyThread
+    fun postDelay(value: T?, delay: Long, producer: LifecycleOwner)
+
+    /**
+     * 发布事件，允许在子线程发布，确保订阅者按照发布顺序接收事件
+     */
+    @AnyThread
+    fun postOrderly(value: T?)
+
+    /**
+     * 以生命周期感知模式订阅事件（不需要手动注销订阅）
+     */
+    @AnyThread
+    fun observe(consumer: LifecycleOwner, observer: Observer<T?>)
+
+    /**
+     * 以生命周期感知模式粘性订阅事件（不需要手动注销订阅）
+     */
+    @AnyThread
+    fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>)
+    
+    /**
+     * 以永久模式订阅事件（需要手动注销订阅）
+     */
+    fun observeForever(observer: Observer<T?>)
+
+    /**
+     * 以永久模式粘性订阅事件（需要手动注销订阅）
+     *
+     * @param observer Event observer.
+     */
+    @AnyThread
+    fun observeStickyForever(observer: Observer<T?>)
+
+    /**
+     * 注销订阅者
+     */
+    @AnyThread
+    fun removeObserver(observer: Observer<T?>)
+
+    /**
+     * 移除粘性事件
+     */
+    @AnyThread
+    fun removeStickyEvent()
+}
+```
+
+### 3、订阅事件
 
 
-## 常见问题 Q&A
+
+
+
+### 4、发布事件
+
+
+
+
+## 常见问题 Q & A
 
 收不到粘性事件
 
