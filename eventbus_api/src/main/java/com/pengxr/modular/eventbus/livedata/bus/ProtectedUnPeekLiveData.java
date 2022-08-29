@@ -51,6 +51,8 @@ class ProtectedUnPeekLiveData<T> extends LiveData<T> {
     protected void setValue(T value) {
         mCurrentVersion.getAndIncrement();
         super.setValue(value);
+        // Try clear data.
+        autoClearNoObserverData();
     }
 
     class ObserverWrapper implements Observer<T> {
@@ -108,6 +110,11 @@ class ProtectedUnPeekLiveData<T> extends LiveData<T> {
 
     private void removeObserverInternal(@NonNull ObserverWrapper observerWrapper) {
         super.removeObserver(observerWrapper);
+        // Try clear data.
+        autoClearNoObserverData();
+    }
+
+    private void autoClearNoObserverData() {
         if (isAutoClear && !hasObservers()) {
             if (null != noObserverCallback) {
                 noObserverCallback.onNoObserverAfterRemoved(this);
