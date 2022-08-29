@@ -7,4 +7,4 @@ import android.os.Looper
  * <p>
  * Created by pengxr on 16/8/2022
  */
-fun isMainThread() = Looper.myLooper() == Looper.getMainLooper()
+internal fun isMainThread() = Looper.myLooper() == Looper.getMainLooper()
