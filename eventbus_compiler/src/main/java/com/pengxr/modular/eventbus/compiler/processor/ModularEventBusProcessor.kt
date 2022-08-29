@@ -15,7 +15,6 @@ import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.element.Element
 import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
-import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -117,7 +116,7 @@ class ModularEventBusProcessor : BaseProcessor() {
                             addModifiers(Modifier.STATIC)
                             // 3.1.3 return
                             // Event data class type (void -> Void)
-                            val returnType = if (eventMeta.returnType.kind == TypeKind.VOID)
+                            val returnType = if (eventMeta.returnType.isVoidReturnType())
                                 voidTypeMirror
                             else
                                 eventMeta.element.returnType

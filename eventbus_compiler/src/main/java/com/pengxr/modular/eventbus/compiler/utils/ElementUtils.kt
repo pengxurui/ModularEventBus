@@ -1,6 +1,8 @@
 package com.pengxr.modular.eventbus.compiler.utils
 
 import javax.lang.model.element.ExecutableElement
+import javax.lang.model.type.TypeKind
+import javax.lang.model.type.TypeMirror
 
 /**
  * Element helper.
@@ -20,6 +22,8 @@ import javax.lang.model.element.ExecutableElement
  * android.annotation.NonNull         - return false
  * androidx.annotation.NonNull        - return false
  *
+ * else                               - return true
+ *
  * @return nullable or not.
  */
 fun ExecutableElement.isAnnotatedWithNullable(): Boolean {
@@ -35,4 +39,22 @@ fun ExecutableElement.isAnnotatedWithNullable(): Boolean {
         }
     }
     return true
+}
+
+/**
+ * Check if the type is equals to void, return true if empty annotation.
+ *
+ * void in Java      - return true
+ * Void in Java      - return true
+ *
+ * [empty] in Kotlin - return true
+ * Unit in Kotlin    - return true
+ * Unit? in Kotlin   - return true
+ *
+ * else - return false
+ *
+ * @return void or not.
+ */
+fun TypeMirror.isVoidReturnType():Boolean{
+    return kind == TypeKind.VOID || toString() == "kotlin.Unit"
 }
