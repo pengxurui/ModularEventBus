@@ -4,9 +4,10 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * LiveData base on KunMinX's version, it uses ObserverWrapper to solve sticky events.
- * This version is edit by pengxr to automatically clear livedata with no related observers.
  * <p>
- * {@see https://github.com/KunMinX/UnPeek-LiveData}
+ * This version was edited by pengxurui and added the feature of automatically clearing the livedata with no related observers.
+ * <p>
+ * [@see https://github.com/KunMinX/UnPeek-LiveData]
  */
 class UnPeekLiveData<T> extends ProtectedUnPeekLiveData<T> {
 

@@ -29,16 +29,15 @@ internal object LiveDataBus : NoObserverCallback {
                 .setAutoClear(autoClear)
                 .setNoObserverCallback(if (autoClear) this else null)
                 .create()
-            bus[eventName] = LiveEvent(liveData)
+            bus[eventName] = LiveEvent(eventName, liveData)
         }
         return bus[eventName] as LiveEvent<T>
     }
 
     /**
-     * Remove event sent.
+     * Remove event sent, the associated subscription will also be removed.
      */
-    @Synchronized
-    fun removeStickyEvent(eventName: String) {
+    fun removeEvent(eventName: String) {
         bus.remove(eventName)
     }
 

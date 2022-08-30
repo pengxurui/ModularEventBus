@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
@@ -12,9 +13,10 @@ import androidx.lifecycle.Observer;
 
 /**
  * LiveData base on KunMinX's version, it uses ObserverWrapper to solve sticky events.
- * This version is edit by pengxr: automatically clear livedata with no related observers.
  * <p>
- * {@see https://github.com/KunMinX/UnPeek-LiveData}
+ * This version was edited by pengxurui and added the feature of automatically clearing the livedata with no related observers.
+ * <p>
+ * [@see https://github.com/KunMinX/UnPeek-LiveData]
  */
 @SuppressWarnings("unchecked")
 class ProtectedUnPeekLiveData<T> extends LiveData<T> {
@@ -39,10 +41,12 @@ class ProtectedUnPeekLiveData<T> extends LiveData<T> {
         super.observeForever(createObserverWrapper(observer, mCurrentVersion.get()));
     }
 
+    @MainThread
     public void observeSticky(@NonNull LifecycleOwner owner, @NonNull Observer<T> observer) {
         super.observe(owner, createObserverWrapper(observer, START_VERSION));
     }
 
+    @MainThread
     public void observeStickyForever(@NonNull Observer<? super T> observer) {
         super.observeForever(createObserverWrapper(observer, START_VERSION));
     }

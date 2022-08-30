@@ -59,6 +59,7 @@ interface IEvent<T> {
      * @param consumer LifecycleOwner of the event consumer.
      * @param observer Event observer.
      */
+    @AnyThread
     fun observe(consumer: LifecycleOwner, observer: Observer<T?>)
 
     /**
@@ -68,6 +69,7 @@ interface IEvent<T> {
      * @param consumer LifecycleOwner of the event consumer.
      * @param observer Event observer.
      */
+    @AnyThread
     fun observeSticky(consumer: LifecycleOwner, observer: Observer<T?>)
 
     /**
@@ -75,6 +77,7 @@ interface IEvent<T> {
      *
      * @param observer Event observer.
      */
+    @AnyThread
     fun observeForever(observer: Observer<T?>)
 
     /**
@@ -83,16 +86,19 @@ interface IEvent<T> {
      *
      * @param observer Event observer.
      */
+    @AnyThread
     fun observeStickyForever(observer: Observer<T?>)
 
     /**
      * Unregister a observer.
      * @param observer Event observer.
      */
+    @AnyThread
     fun removeObserver(observer: Observer<T?>)
 
     /**
-     * Remove event sent.
+     * Remove event sent, the associated subscription will also be removed.
      */
-    fun removeStickyEvent()
+    @AnyThread
+    fun removeEvent()
 }

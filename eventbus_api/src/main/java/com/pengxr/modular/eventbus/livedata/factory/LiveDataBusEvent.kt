@@ -49,8 +49,7 @@ internal class LiveDataBusEvent<T>(eventName: String, dataClazz: Class<T>, nulla
         LiveDataBus.with(eventName, dataClazz, autoClear).removeObserver(observer)
     }
 
-    override fun removeStickyEvent() {
-        // Remove from LiveDataBus directly.
-        LiveDataBus.removeStickyEvent(eventName)
+    override fun removeEvent() {
+        LiveDataBus.with(eventName, dataClazz, autoClear).removeEvent()
     }
 }
