@@ -57,7 +57,7 @@
 
 ### Demo 展示
 
-##### [Demo apk](https://github.com/pengxurui/ModularEventBus/blob/main/demo/apk/modular-eventbus-demo-v1.0.4.apk)
+##### [Demo apk](https://github.com/pengxurui/ModularEventBus/tree/main/demo)
 
 ### 常见事件总线框架对比
 
