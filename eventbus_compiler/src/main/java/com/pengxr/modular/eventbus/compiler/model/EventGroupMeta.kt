@@ -67,9 +67,9 @@ class EventGroupMeta(
                 throw IllegalEventGroupException("${TAG}Inherited interface [${element.simpleName}] brings complexity, it is not allowed.")
             }
             val groupAnnotation = element.getAnnotation(EventGroup::class.java) ?: return null
-            val packageName = element.enclosingElement.toString()
+            val fullClassName = "${element.qualifiedName}"
             val className = "EventDefineOf${element.simpleName}"
-            val moduleName = groupAnnotation.moduleName.ifEmpty { packageName }
+            val moduleName = groupAnnotation.moduleName.ifEmpty { fullClassName }
             val autoClear = groupAnnotation.autoClear
             val isDeprecated = null != element.getAnnotation(java.lang.Deprecated::class.java)
             return EventGroupMeta(
