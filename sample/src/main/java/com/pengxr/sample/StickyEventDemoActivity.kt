@@ -28,7 +28,8 @@ class StickyEventDemoActivity : AppCompatActivity() {
         EventDefineOfMainEventsKt.stickyEvent().post("XIAO PENG")
     }
 
-    fun onClickRemoveStickyEvent(view: View) {
-        EventDefineOfMainEventsKt.stickyEvent().removeStickyEvent()
+    fun onClickRemoveEvent(view: View) {
+        toast("Remove Event.")
+        EventDefineOfMainEventsKt.stickyEvent().removeEvent()
     }
 }

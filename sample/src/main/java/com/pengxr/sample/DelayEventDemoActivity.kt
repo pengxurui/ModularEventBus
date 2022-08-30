@@ -22,6 +22,7 @@ class DelayEventDemoActivity : AppCompatActivity() {
 
     // Click to send an event with a delay of 5s, and finish activity to test.
     fun onClickDelayEvent(view: View) {
+        toast("Post event after 5s.");
         // Post event with a delay of 5s.
         EventDefineOfMainEventsKt.delayEvent().postDelay("XIAO PENG 1", 5000)
         // Post event with a delay of 5s, only if the producer is active.

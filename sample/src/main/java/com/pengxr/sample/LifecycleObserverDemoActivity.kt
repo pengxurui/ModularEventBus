@@ -17,15 +17,20 @@ class LifecycleObserverDemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lifecycle_observer_demo)
     }
 
+    // Register observers without remove them, test whether they will be after owner destroyed.
     fun onClickLifecycleObserver(view: View) {
-        // Register observers without remove them, test whether they will be after owner destroyed.
-        val newCount = ++lifecycleObserverConut
+        toast("Register 2 observers.")
+        val newCount1 = ++lifecycleObserverConut
         EventDefineOfMainEventsKt.lifecycleObserverEvent().observe(this) {
-            toast("Observer num: $newCount")
+            toast("Receive delayed event from observer, observer no.$newCount1.")
         }
+        val newCount2 = ++lifecycleObserverConut
         EventDefineOfMainEventsKt.lifecycleObserverEvent().observeSticky(this) {
-            toast("Sticky Observer num: $newCount")
+            toast("Receive delayed event from sticky observer, observer no.$newCount2.")
         }
+    }
+
+    fun onClickPostEvent(view: View) {
         EventDefineOfMainEventsKt.lifecycleObserverEvent().post("XIAO PENG")
     }
 }

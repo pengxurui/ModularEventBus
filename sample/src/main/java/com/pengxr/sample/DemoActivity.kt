@@ -38,7 +38,7 @@ class DemoActivity : AppCompatActivity() {
     }
 
     fun onClickNonNullDataEvent(view: View) {
-        toast("throw NullEventException")
+        toast("throw NullEventException.")
         try {
             EventDefineOfMainEvents.nonNullEventInJava().post(null)
         } catch (e: NullEventException) {

@@ -20,6 +20,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClickRemoveStickyEvent"
-        android:text="Test remove sticky event" />
+        android:onClick="onClickRemoveEvent"
+        android:text="Test remove event" />
 </LinearLayout>
