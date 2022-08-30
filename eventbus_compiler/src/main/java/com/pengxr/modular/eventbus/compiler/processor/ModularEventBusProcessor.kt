@@ -50,7 +50,6 @@ class ModularEventBusProcessor : BaseProcessor() {
             logger.info("ModularEventBus APT processor Done");
             return true
         }
-        logger.info("ModularEventBus APT processor Done with no work.");
         return false
     }
 
@@ -130,9 +129,9 @@ class ModularEventBusProcessor : BaseProcessor() {
                             } else {
                                 null
                             }
-                            // 3.1.5 Method body: return ModularEventBus.createObservable("LiveDataBus","moduleName$$eventName1",List.class);
+                            // 3.1.5 Method body: return ModularEventBus.createObservable("LiveDataBus","moduleName$$eventName1",List.class, nullable, autoClear);
                             addStatement(
-                                "return (\$T)(\$T.INSTANCE.createObservable(\$S, \$T.class,\$L,\$L))",
+                                "return (\$T) (\$T.INSTANCE.createObservable(\$S, \$T.class, \$L, \$L))",
                                 returnTypeSpec,
                                 modularEventBus,
                                 eventMeta.eventName,
@@ -167,8 +166,8 @@ class ModularEventBusProcessor : BaseProcessor() {
             JavaFile.builder(
                 PACKAGE_OF_GENERATE_FILE,
                 TypeSpec.classBuilder(groupMeta.className).apply {
-                    addJavadoc("Auto generate code, do not modify!!!\n")
-                    addJavadoc("@see \$L", groupMeta.element.toString())
+                    addJavadoc("Auto generate code, do not modify!!!\n\n")
+                    addJavadoc("@see \$L\n", groupMeta.element.toString())
                     if (null != deprecatedAnnotationSpec) {
                         addAnnotation(deprecatedAnnotationSpec)
                     }
