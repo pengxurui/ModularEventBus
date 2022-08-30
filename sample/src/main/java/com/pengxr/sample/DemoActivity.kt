@@ -86,6 +86,10 @@ class DemoActivity : AppCompatActivity() {
         startActivity(Intent(this, DelayEventDemoActivity::class.java))
     }
 
+    fun onClickStickyEvent(view: View) {
+        startActivity(Intent(this, StickyEventDemoActivity::class.java))
+    }
+
     fun testProguard() {
         EventDefineOfLoginEvents.login().observe(this) { user: UserInfo? ->
         }

@@ -44,4 +44,10 @@
         android:layout_height="wrap_content"
         android:onClick="onClickDelayEvent"
         android:text="Test delay event" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickStickyEvent"
+        android:text="Test sticky event" />
 </LinearLayout>

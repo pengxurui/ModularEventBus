@@ -11,19 +11,20 @@ class DelayEventDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delay_event_demo)
-    }
 
-    fun onClickDelayEvent(view: View) {
-        // Click to send an event with a delay of 5s, and finish activity to test.
         EventDefineOfMainEventsKt.delayEvent().observe(this) {
             toast("Receive delayed event from observer, event=$it.")
         }
         EventDefineOfMainEventsKt.delayEvent().observeForever {
             toast("Receive delayed event from forever observer, event=$it.")
         }
+    }
+
+    // Click to send an event with a delay of 5s, and finish activity to test.
+    fun onClickDelayEvent(view: View) {
         // Post event with a delay of 5s.
         EventDefineOfMainEventsKt.delayEvent().postDelay("XIAO PENG 1", 5000)
-        // Post event with a delay of 5s, only if the producer is not destroyed.
+        // Post event with a delay of 5s, only if the producer is active.
         EventDefineOfMainEventsKt.delayEvent().postDelay("XIAO PENG 2", 5000, this)
     }
 }

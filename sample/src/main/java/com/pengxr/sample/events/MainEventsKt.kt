@@ -6,7 +6,7 @@ import com.pengxr.modular.eventbus.facade.annotation.EventGroup
 /**
  * Created by pengxr on 28/8/2022
  */
-@EventGroup
+@EventGroup(moduleName = "main")
 interface MainEventsKt {
 
     fun nonNullEventInKotlin(): String
@@ -26,4 +26,6 @@ interface MainEventsKt {
     fun lifecycleObserverEvent(): String
 
     fun delayEvent(): String
+
+    fun stickyEvent(): String
 }
