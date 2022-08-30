@@ -77,7 +77,8 @@
 | 延迟发送事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | 有序接收事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 订阅 Sticky 事件 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 移除 Sticky 事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| 清除 Sticky 事件 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| 移除事件 | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | 线程调度 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | 跨进程 / 跨 App | ❌（可支持） | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | 关键原理| APT+静态代理 | APT+动态代理| APT+静态代理 | LiveData | LiveData | APT | RxJava|
@@ -114,7 +115,7 @@
 
 ✅  支持 AndroidX；
 
-✅  支持订阅 Sticky 粘性事件，支持移除 Sticky 粘性事件；
+✅  支持订阅 Sticky 粘性事件，支持移除事件；
 
 ✅  支持 Generic 泛型事件，如 `List<String>` 事件；
 
@@ -539,10 +540,10 @@ interface IEvent<T> {
     fun removeObserver(observer: Observer<T?>)
 
     /**
-     * 移除粘性事件
+     * 移除事件，关联的订阅者关系也会被解除
      */
     @AnyThread
-    fun removeStickyEvent()
+    fun removeEvent()
 }
 ```
 
@@ -594,8 +595,8 @@ EventDefineOfMainEvents.open().postDelay("XIAO PENG", 5000, this)
 // 发布事件，允许在子线程发布，确保订阅者按照发布顺序接收事件
 EventDefineOfMainEvents.open().postOrderly("XIAO PENG")
   
-// 移除粘性事件
-EventDefineOfMainEvents.open().removeStickyEvent()
+// 移除事件
+EventDefineOfMainEvents.open().removeEvent()
 ```
   
 ### 5、更多功能
@@ -664,6 +665,7 @@ ModularEventBus.debug(true)
 
 - 支持跨进程 / 跨 App：LiveEventBus 框架支持跨进程 / 跨 App，未来根据使用反馈考虑实现该 Feature；
 - 支持替换内部 EventBus 工厂：ModularEventBus 已预设计事件总线工厂 `IEventFactory`，未来根据使用反馈考虑公开该 API；
+- 支持基于 Kotlin Flow 的 IEventFactory 工厂；
 - 编译时检查在不同 `@EventGroup` 中设置相同 modulaName 且相同 `eventName`，但事件数据类型不同的异常。
 
 ## 参考资料
