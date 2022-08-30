@@ -11,8 +11,8 @@ android {
         applicationId "com.pengxr.sample"
         minSdk Integer.parseInt(MIN_SDK_VERSION)
         targetSdk Integer.parseInt(TARGET_SDK_VERSION)
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.0.5"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -61,8 +61,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    implementation "io.github.pengxurui:modular-eventbus-api:1.0.4"
-    kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.4"
+    implementation "io.github.pengxurui:modular-eventbus-api:1.0.5"
+    kapt "io.github.pengxurui:modular-eventbus-compiler:1.0.5"
 
      implementation project(":sampleLoginLib")
     // Proguard test.
